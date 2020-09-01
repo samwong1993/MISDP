@@ -36,4 +36,4 @@ while(abs(z_Upper - z_Lower) > 1e-7)
     end
 end
 fprintf("LB:(%2.0f,%2.0f,%2.0f)|UP:(%2.0f,%2.0f,%2.0f)\n",range_n(:,1),range_n(:,2))
-fprintf("n_e:(%2.0f,%2.0f,%2.0f)|n:(%2.0f,%2.0f,%2.0f)|Gap:%2.2f\n",param.n_e,n',abs(z_Upper - z_Lower))
+fprintf("n_e:(%2.0f,%2.0f,%2.0f)|n:(%2.0f,%2.0f,%2.0f)|Gap:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
