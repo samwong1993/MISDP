@@ -14,7 +14,7 @@ param.n = [0,0,0]
 param.x = [0,0]
 clear n
 clear x
-while(abs(z_Upper - z_Lower) > 1e-5)
+while(abs(z_Upper - z_Lower) > 1e-7)
     cvx_solver mosek
     [z,X,G,n] = OA_master(param,H,Y);
     z_Lower = sum(z);
