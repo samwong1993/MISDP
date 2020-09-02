@@ -1,9 +1,9 @@
 clear all
 load demo_2_D
-% lambda = 3.3;
-% M = 4;
-% d = 3;
-% param = generator(lambda,M,d);
+lambda = 3.3;
+M = 4;
+d = 3;
+param = generator(lambda,M,d);
 H = [];
 Y = [];
 z_Upper = 9999;

@@ -14,22 +14,21 @@ function [H,Y,S] = NLP_D(param)
         A(:,:,i) = [eye(d),-s(i,:)';-s(i,:),s(i,:)*s(i,:)'];
     end
     for i = 1:M
-        eval("E_"+string(i)+string(i)+"= E_0;")
-        eval("E_"+string(i)+string(i)+"("+string(i)+","+string(i)+")= 1;")
-        eval("E_"+string(i)+"M1"+"= E_0;") 
-        eval("E_"+string(i)+"M1"+"("+string(i)+",M+1)= 1;")
+        eval("E_"+string(i)+string(i)+"= E_0"); 
+        eval("E_"+string(i)+string(i)+"("+string(i)+","+string(i)+")= 1");
+        eval("E_"+string(i)+"M1"+"= E_0"); 
+        eval("E_"+string(i)+"M1"+"("+string(i)+",M+1)= 1");
         H_lhs(i) = "(1 + lambda_G_X("+string(i)+"))*E_"+string(i)+string(i)+" - r("+string(i)+")*("+"E_"+string(i)+"M1+"+"E_"+string(i)+"M1"+"')";
         Y_lhr(i) = "lambda_G_X("+string(i)+")*A(:,:,"+string(i)+")";
     end
     H_sum = "";
-    Y_sum = "-";
+    Y_sum = "";
     for i = 1:M-1
         H_sum = H_sum + H_lhs(i) + "+";
-        Y_sum = Y_sum + Y_lhr(i) + "-";
+        Y_sum = Y_sum + Y_lhr(i) + "+";
     end
-    i = i + 1;
-	H_sum = H_sum + H_lhs(i);
-    Y_sum = Y_sum + Y_lhr(i);
+	H_sum = H_sum + H_lhs(i) + "+";
+    Y_sum = Y_sum + Y_lhr(i) + "+";
     cvx_begin quiet
     cvx_precision high
         variable lambda_G_X(M)
@@ -38,8 +37,8 @@ function [H,Y,S] = NLP_D(param)
         variable H(M+1,M+1) symmetric
         variable Y(d+1,d+1) symmetric
         maximize -lambda_G-lambda_X+sum(r.^2)
-        H == eval(H_sum) + lambda_G*E_M1M1
-        Y == eval(Y_sum) + lambda_X*E_d1d1
+        H == (1 + lambda_G_X(1))*E_11 - r(1)*(E_1M1+E_1M1') + (1 + lambda_G_X(2))*E_22 - r(2)*(E_2M1+E_2M1')+ (1 + lambda_G_X(3))*E_33 - r(3)*(E_3M1+E_3M1') + lambda_G*E_M1M1
+        Y == -(lambda_G_X(1)*A(:,:,1) + lambda_G_X(2)*A(:,:,2) + lambda_G_X(3)*A(:,:,3)) + lambda_X*E_d1d1
         H == semidefinite(M+1)
         Y == semidefinite(d+1)
     cvx_end
