@@ -1,7 +1,7 @@
 clear all
 load demo_2_D
 lambda = 3.3;
-M = 3;
+M = 5;
 d = 2;
 param = generator(lambda,M,d);
 % param.a = param.a + 2*randn(1,M);
