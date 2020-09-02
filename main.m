@@ -1,9 +1,10 @@
 clear all
-load demo_3_D
-% lambda = 3.3;
-% M = 4;
-% d = 3;
-% param = generator(lambda,M,d);
+load demo_2_D
+lambda = 3.3;
+M = 3;
+d = 2;
+param = generator(lambda,M,d);
+% param.a = param.a + 2*randn(1,M);
 H = [];
 Y = [];
 z_Upper = 9999;
