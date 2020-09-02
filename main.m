@@ -1,5 +1,5 @@
 clear all
-load demo_2_D
+load demo_3_D
 % lambda = 3.3;
 % M = 4;
 % d = 3;
@@ -28,7 +28,7 @@ while(abs(z_Upper - z_Lower) > 1e-7)
     param.n = n';
     [G_p,X_p,S_p] = NLP_P(param);
 	[H_d,Y_d,S_d] = NLP_D(param);
-    if S_p<z_Upper
+    if S_p < z_Upper
         z_Upper = S_p;
         n_best = n;
     end
@@ -37,7 +37,7 @@ while(abs(z_Upper - z_Lower) > 1e-7)
     i = i + 1;
     fprintf("LB:("+str+")|UP:("+str+")\n",range_n(:,1),range_n(:,2))
     fprintf("n_e:("+str+")|n:("+str+")|Gap:%2.2f\n",param.n_e,n',abs(z_Upper - z_Lower))
-    if i > 20 & z_Upper<10
+    if i > 20 & z_Upper<10 | i > 50
         break
     end
 end
