@@ -30,8 +30,6 @@ function [z,X,G,n] = OA_master(param,H,Y)
         for i = 1:M
             range_n(i,1) <= n(i) <= range_n(i,2)
             R(:,:,i) == semidefinite(2)
-        end
-        for i = 1:M
             R(1,1,i) == G(i,i)
             R(2,2,i) == 1
             R(1,2,i) == G(i,M+1)

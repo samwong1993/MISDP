@@ -12,8 +12,6 @@ function [H,Y,S] = NLP_D(param)
     for i = 1:M
         r(i) = a(i) + n(i)*lambda;
         A(:,:,i) = [eye(d),-s(i,:)';-s(i,:),s(i,:)*s(i,:)'];
-    end
-    for i = 1:M
         eval("E_"+string(i)+string(i)+"= E_0;")
         eval("E_"+string(i)+string(i)+"("+string(i)+","+string(i)+")= 1;")
         eval("E_"+string(i)+"M1"+"= E_0;") 
