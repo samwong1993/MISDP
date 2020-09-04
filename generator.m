@@ -3,8 +3,8 @@ function param = generator(lambda,M,d)
         s(i,:) = 100*rand(1,d);
     end
     n = round(rand(1,M)*20);
-    x = 200*rand(1,d);
-    x_0 = x + 20*rand(1,d);
+    x = 100 + 200*rand(1,d);
+    x_0 = x + 50*rand(1,d);
     alpha = norm(x - x_0);
     for i = 1:M
         a(i) = norm(x-s(i,:)) - n(i)*lambda;

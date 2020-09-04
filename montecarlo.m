@@ -2,7 +2,7 @@ clear all
 load demo_3_D
 for iter = 1:100
     lambda = 3.3;
-    M = 6;
+    M = 8;
     d = 3;
     param = generator(lambda,M,d);
     %param.a = param.a + 2*randn(1,M);
@@ -11,8 +11,8 @@ for iter = 1:100
     z_Upper = 9999;
     z_Lower = -9999;
     range_n = range(param);
-    param.n = [0,0,0]
-    param.x = [0,0]
+    param.n = [0,0,0];
+    param.x = [0,0];
     clear n
     clear x
     str = "";
@@ -40,8 +40,6 @@ for iter = 1:100
         Y(:,:,i) = Y_d;
         i = i + 1;
         k = k + 1;
-        fprintf("LB:("+str+")|UP:("+str+")\n",range_n(:,1),range_n(:,2))
-        fprintf("n_e:("+str+")|n:("+str+")|Gap:%2.2f\n",param.n_e,n',abs(z_Upper - z_Lower))
         if k > 20 & z_Upper<2 | i > 50
             break
         end
@@ -52,3 +50,12 @@ for iter = 1:100
     UB(iter,:) = range_n(:,2);
     error(iter,:) = abs(param.n_e - n_best');
 end
+area(mean(UB)-mean(LB),'facecolor',[0.3,1,1])
+hold on
+title('Range of n_i')
+xlabel('Sensors')
+ylabel('Value of n_i')
+area(mean(error),'facecolor','r')
+ylim([0,1.5*(mean(mean(UB)-mean(LB)))])
+legend('Range of n_i','Error')
+xticks([1:M])
