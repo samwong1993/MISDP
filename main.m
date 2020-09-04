@@ -6,15 +6,18 @@ d = 3;
 %param = generator(lambda,M,d);
 param = realdata();
 %param.a = param.a + 2*randn(1,M);
+%initialization
 H = [];
 Y = [];
 z_Upper = 9999;
 z_Lower = -9999;
 range_n = range(param);
+%delete all the variables
 param.n = zeros(1,M);
 param.x = zeros(1,d);
 clear n
 clear x
+%set output format
 str = "";
 for i = 1:M-1
     str = str + "%2.0f,";
@@ -23,6 +26,7 @@ i = i + 1;
 str = str + "%2.0f";
 k = 1;
 i = 1;
+%OA algorithm
 while(abs(z_Upper - z_Lower) > 1e-7)
     cvx_solver mosek
     [z,X,G,n] = OA_master(param,H,Y);
