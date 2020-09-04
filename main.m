@@ -1,7 +1,7 @@
 clear all
 load demo_3_D
 lambda = 3.3;
-M = 6;
+M = 5;
 d = 3;
 param = generator(lambda,M,d);
 %param.a = param.a + 2*randn(1,M);
@@ -10,8 +10,8 @@ Y = [];
 z_Upper = 9999;
 z_Lower = -9999;
 range_n = range(param);
-param.n = [0,0,0]
-param.x = [0,0]
+param.n = zeros(1,M)
+param.x = zeros(1,d)
 clear n
 clear x
 str = "";
