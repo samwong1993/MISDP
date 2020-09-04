@@ -1,5 +1,6 @@
 function demo_3_D(param)
     figure(1)
+    clf
     hold
     [M,d] = size(param.s);
     for i = 1:M
@@ -10,6 +11,6 @@ function demo_3_D(param)
     end
     point1 = scatter3(param.x_e(1),param.x_e(2),param.x_e(3),50,'filled','r');
     point3 = scatter3(param.x(1),param.x(2),param.x(3),50,'k*');
-	h = legend([point1,point2,point3],'Emitter', 'Sensors','Estimated Location','AutoUpdate','off');
+	legend([point1,point2,point3],'Emitter', 'Sensors','Estimated Location');
     grid on
 end
