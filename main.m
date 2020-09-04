@@ -42,7 +42,7 @@ while(abs(z_Upper - z_Lower) > 1e-7)
     k = k + 1;
     fprintf("LB:("+str+")|UP:("+str+")\n",range_n(:,1),range_n(:,2))
     fprintf("n_e:("+str+")|n:("+str+")|Gap:%2.2f\n",param.n_e,n',abs(z_Upper - z_Lower))
-    if k > 20 & z_Upper<2 | i > 50
+    if k > 20 & z_Upper < 2 | i > 50
         break
     end
 end
