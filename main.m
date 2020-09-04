@@ -11,8 +11,8 @@ Y = [];
 z_Upper = 9999;
 z_Lower = -9999;
 range_n = range(param);
-param.n = zeros(1,M)
-param.x = zeros(1,d)
+param.n = zeros(1,M);
+param.x = zeros(1,d);
 clear n
 clear x
 str = "";
