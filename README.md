@@ -1,5 +1,5 @@
 1. CVX with mosek is required and do not use Gurobi.
-follow the guidance of: https://blog.csdn.net/u012705410/article/details/78196927
+Follow the guidance of: https://blog.csdn.net/u012705410/article/details/78196927
 2. We provide two demo data settings demo_2D.mat/demo_3D.mat. 
 3. generator.m: Generate synthetic data.
 4. OA_master.m/NLP_P.m/NLP_D.m: Solving the corresponding subproblem in our paper.
