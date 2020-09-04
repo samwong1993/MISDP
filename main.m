@@ -1,7 +1,7 @@
 clear all
-load demo_3_D
+%load demo_3_D
 lambda = 3.3;
-M = 10;
+M = 6;
 d = 3;
 %load data
 param = generator(lambda,M,d);
@@ -45,11 +45,11 @@ while(abs(z_Upper - z_Lower) > 1e-7)
     Y(:,:,i) = Y_d;
     i = i + 1;
     k = k + 1;
-    fprintf("LB:("+str+")|UP:("+str+")\n",range_n(:,1),range_n(:,2))
-    fprintf("n_e:("+str+")|n:("+str+")|Gap:%2.2f\n",param.n_e,n',abs(z_Upper - z_Lower))
+    fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
+    fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n',S_p)
     if k > 20 & z_Upper < 2 | i > 100
         break
     end
 end
-fprintf("LB:("+str+")|UP:("+str+")\n",range_n(:,1),range_n(:,2))
-fprintf("n_e:("+str+")|n:("+str+")|Gap:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
+fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
+fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',S_p)
