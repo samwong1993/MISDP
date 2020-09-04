@@ -1,11 +1,11 @@
 clear all
 load demo_3_D
 lambda = 3.3;
-M = 5;
+M = 10;
 d = 3;
 %load data
-%param = generator(lambda,M,d);
-param = realdata();
+param = generator(lambda,M,d);
+%param = realdata();
 %param.a = param.a + 2*randn(1,M);
 %initialization
 H = [];
@@ -47,7 +47,7 @@ while(abs(z_Upper - z_Lower) > 1e-7)
     k = k + 1;
     fprintf("LB:("+str+")|UP:("+str+")\n",range_n(:,1),range_n(:,2))
     fprintf("n_e:("+str+")|n:("+str+")|Gap:%2.2f\n",param.n_e,n',abs(z_Upper - z_Lower))
-    if k > 20 & z_Upper < 2 | i > 50
+    if k > 20 & z_Upper < 2 | i > 100
         break
     end
 end
