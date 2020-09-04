@@ -53,3 +53,5 @@ while(abs(z_Upper - z_Lower) > 1e-7)
 end
 fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
 fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
+param = solve_x(param);
+demo_3_D(param);
