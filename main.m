@@ -3,6 +3,7 @@ load demo_3_D
 lambda = 3.3;
 M = 5;
 d = 3;
+%load data
 %param = generator(lambda,M,d);
 param = realdata();
 %param.a = param.a + 2*randn(1,M);
