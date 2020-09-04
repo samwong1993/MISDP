@@ -47,9 +47,9 @@ while(abs(z_Upper - z_Lower) > 1e-7)
     k = k + 1;
     fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
     fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n',S_p)
-    if k > 20 & z_Upper < 2 | i > 100
+    if k > 20 & z_Upper < 5 | i > 50
         break
     end
 end
 fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
-fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',S_p)
+fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
