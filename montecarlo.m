@@ -40,7 +40,7 @@ for iter = 1:100
         Y(:,:,i) = Y_d;
         i = i + 1;
         k = k + 1;
-        if k > 20 & z_Upper<2 | i > 50
+        if k > 20 & z_Upper < 2 | i > 50
             break
         end
     end
