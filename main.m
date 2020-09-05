@@ -28,7 +28,7 @@ str = str + "%2.0f";
 k = 1;
 i = 1;
 %OA algorithm
-while(abs(z_Upper - z_Lower) > 1e-7)
+while(abs(z_Upper - z_Lower) > 1e-5)
     cvx_solver mosek
     [z,X,G,n] = OA_master(param,H,Y);
     z_Lower = sum(z);
