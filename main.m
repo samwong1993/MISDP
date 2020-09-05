@@ -1,6 +1,6 @@
 clear all
 %load demo_3_D
-lambda = 3.3;
+lambda = 10;
 M = 6;
 d = 3;
 %load data

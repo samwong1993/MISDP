@@ -1,10 +1,10 @@
 function param = generator(lambda,M,d)
     for i = 1:M
-        s(i,:) = 100*rand(1,d);
+        s(i,:) = 200*rand(1,d);
     end
     n = round(rand(1,M)*20);
-    x = 200*rand(1,d);
-    x_0 = x + 20*rand(1,d);
+    x = 500*rand(1,d);
+    x_0 = x + 30*rand(1,d);
     alpha = norm(x - x_0);
     for i = 1:M
         a(i) = norm(x-s(i,:)) - n(i)*lambda;
@@ -17,7 +17,7 @@ function param = generator(lambda,M,d)
     param.a = a;
     param.n = n;
     param.x_0 = x_0;
-    rho = 1.5*norm(x - x_0);
+    rho = 2*norm(x - x_0);
     param.rho = rho;
     param.obj = objective(param);
 end
