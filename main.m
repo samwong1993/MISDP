@@ -54,7 +54,7 @@ end
 fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
 fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
 param.n = n_best';
-param = revover_x(param);
+param = solve_x(param);
 if d == 3
     demo_3_D(param);
 end

@@ -1,8 +1,7 @@
 function param = solve_x(param)
     obj = objective(param);
     rho = param.rho;
-    [M,d] = size(param.s);
-    x_0 = param.x_0 + 10*randn(1,d);
+    x_0 = param.x_0;
     for i = 1:100000
         x = param.x;
         obj_old = obj;
