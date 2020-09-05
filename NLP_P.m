@@ -10,7 +10,7 @@ function [G,X,S] = NLP_P(param)
             r(i) = a(i) + n(i)*lambda;
     end
     cvx_begin quiet
-    cvx_precision high
+    cvx_precision best
         variable z(M)
         variable X(d+1,d+1) symmetric
         variable G(M+1,M+1) symmetric

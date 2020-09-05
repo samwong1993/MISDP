@@ -29,7 +29,7 @@ function [H,Y,S] = NLP_D(param)
 	H_sum = H_sum + H_lhs(i);
     Y_sum = Y_sum + Y_lhr(i);
     cvx_begin quiet
-    cvx_precision high
+    cvx_precision best
         variable lambda_G_X(M)
         variable lambda_G 
         variable lambda_X
