@@ -1,13 +1,14 @@
 function param = solve_x(param)
     obj = objective(param);
     rho = param.rho;
-    x_0 = param.x_0;
+    [M,d] = size(param.s);
+    x_0 = param.x_0 + 10*randn(1,d);
     for i = 1:100000
         x = param.x;
         obj_old = obj;
         g_x = grad_x(param);
         x = x - 0.01*g_x;
-        if rho >= 0 & norm(x - x_0)>rho
+        if norm(x - x_0) > rho
             x = (x - x_0)/norm(x - x_0)*rho + x_0;
         end
         param.x = x;
