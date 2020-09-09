@@ -1,5 +1,4 @@
 clear all
-% load demo_3_D
 lambda = 8;
 M = 6;
 d = 3;
