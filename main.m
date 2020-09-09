@@ -1,7 +1,7 @@
 clear all
 % load demo_3_D
-lambda = 10;
-M = 4;
+lambda = 8;
+M = 6;
 d = 3;
 %load data
 param = generator(lambda,M,d);
