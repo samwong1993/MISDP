@@ -1,15 +1,16 @@
 clear all
-%load demo_3_D
+% load demo_3_D
 lambda = 10;
-M = 6;
+M = 5;
 d = 3;
 %load data
 param = generator(lambda,M,d);
 %param = realdata();
+[M,d] = size(param.s);
 %param.a = param.a + 2*randn(1,M);
 %initialization
 H = [];
-Y = [];
+Y = []; 
 z_Upper = 9999;
 z_Lower = -9999;
 range_n = range(param);
