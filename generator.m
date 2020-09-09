@@ -17,7 +17,7 @@ function param = generator(lambda,M,d)
     param.a = a;
     param.n = n;
     param.x_0 = x_0;
-    rho = 2*norm(x - x_0);
+    rho = 1.5*norm(x - x_0);
     param.rho = rho;
     param.obj = objective(param);
 end
