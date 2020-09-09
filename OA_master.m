@@ -17,7 +17,7 @@ function [z,X,G,n] = OA_master(param,H,Y)
         minimize sum(z)
         for i = 1:M
             G(i,i) == trace(X*A(:,:,i));
-            -z(i) <= a(i) + n(i)*lambda - G(i,M+1) <= z(i)
+            - z(i) <= a(i) + n(i)*lambda - G(i,M+1) <= z(i)
         end
         G(M+1,M+1) == 1
         X(d+1,d+1) == 1
