@@ -1,5 +1,5 @@
 clear all
-% lambda = 8;
+lambda = 8;
 % M = 6;
 % d = 3;
 % %load data
@@ -28,35 +28,37 @@ str = str + "%2.0f";
 k = 1;
 i = 1;
 %OA algorithm
-while(abs(z_Upper - z_Lower) > 1e-5)
+while(abs(z_Upper - z_Lower) > 1e-8)
     cvx_solver mosek
     [z,X,G,n] = OA_master(param,H,Y);
     z_Lower = sum(z);
     cvx_solver SDPT3
     param.n = n';
-    [G_p,X_p,S_p] = NLP_P(param);
+    %[G_p,X_p,S_p] = NLP_P(param);
     [H_d,Y_d,S_d] = NLP_D(param);
-    if S_p < z_Upper
+    param = solve_x(param);
+    obj = objective(param);
+    if obj < z_Upper
         k = 1;
-        z_Upper = S_p;
+        z_Upper = obj;
         n_best = n;
     end
     H(:,:,i) = H_d;
     Y(:,:,i) = Y_d;
     i = i + 1;
     k = k + 1;
-    fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
-    fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',S_p)
+    fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),1000000*abs(z_Upper - z_Lower))
+    fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',1000000*obj)
     if k > 20 & z_Upper < 5 | i > 50
         break
     end
 end
-fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
-fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
+fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),1000*abs(z_Upper - z_Lower))
+fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',1000000*abs(z_Upper - z_Lower))
 param.n = n_best';
 param = solve_x(param);
-fprintf("Error:%2.2fm Estimated Error:%2.2fm\n",norm(param.x_0 - param.x_e)*1000,norm(param.x - param.x_e)*1000)
+fprintf("Error Range:(%2.2f,%2.2f)m|Error:%2.2fm|Estimated Error:%2.2fm\n",(param.rho + norm(param.x_0 - param.x_e))*1000,(param.rho - norm(param.x_0 - param.x_e))*1000,norm(param.x_0 - param.x_e)*1000,norm(param.x - param.x_e)*1000)
 if d == 3
     earth
-    %demo_3_D(param);
+%     demo_3_D(param);
 end

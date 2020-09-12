@@ -1,20 +1,25 @@
 clear all
-for iter = 1:100
-    lambda = 10;
-    M = 4;
-    d = 3;
-    %load data
-    param = generator(lambda,M,d);
+for iter = 65:100
+%     lambda = 8;
+%     M = 6;
+%     d = 3;
+%     %load data
+%     param = generator(lambda,M,d);
+    param = realdata();
+    [M,d] = size(param.s);
     %param.a = param.a + 2*randn(1,M);
+    %initialization
     H = [];
-    Y = [];
+    Y = []; 
     z_Upper = 9999;
     z_Lower = -9999;
     range_n = range(param);
-    param.n = [0,0,0];
-    param.x = [0,0];
+    %delete all the variables
+    param.n = zeros(1,M);
+    param.x = zeros(1,d);
     clear n
     clear x
+    %set output format
     str = "";
     for i = 1:M-1
         str = str + "%2.0f,";
@@ -23,41 +28,34 @@ for iter = 1:100
     str = str + "%2.0f";
     k = 1;
     i = 1;
-    while(abs(z_Upper - z_Lower) > 1e-7)
+    %OA algorithm
+    while(abs(z_Upper - z_Lower) > 1e-8)
         cvx_solver mosek
         [z,X,G,n] = OA_master(param,H,Y);
         z_Lower = sum(z);
         cvx_solver SDPT3
         param.n = n';
-        [G_p,X_p,S_p] = NLP_P(param);
+        %[G_p,X_p,S_p] = NLP_P(param);
         [H_d,Y_d,S_d] = NLP_D(param);
-        if S_p < z_Upper
+        param = solve_x(param);
+        obj = objective(param);
+        if obj < z_Upper
             k = 1;
-            z_Upper = S_p;
+            z_Upper = obj;
             n_best = n;
         end
         H(:,:,i) = H_d;
         Y(:,:,i) = Y_d;
         i = i + 1;
         k = k + 1;
-        fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
-        fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n',S_p)
         if k > 20 & z_Upper < 5 | i > 50
             break
         end
     end
-    fprintf("LB:("+str+")|UP:("+str+")\n",range_n(:,1),range_n(:,2))
-    fprintf("n_e:("+str+")|n:("+str+")|Gap:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
-    LB(iter,:) = range_n(:,1);
-    UB(iter,:) = range_n(:,2);
-    error(iter,:) = abs(param.n_e - n_best');
+    param.n = n_best';
+    param = solve_x(param);
+    fprintf("Error Range:(%2.2f,%2.2f)m|Error:%2.2fm|Estimated Error:%2.2fm\n",(param.rho + norm(param.x_0 - param.x_e)),(param.rho - norm(param.x_0 - param.x_e)),norm(param.x_0 - param.x_e),norm(param.x - param.x_e))
+    Error_Range(iter,:) = [(param.rho + norm(param.x_0 - param.x_e)),(param.rho - norm(param.x_0 - param.x_e))];
+    Error(iter) = norm(param.x_0 - param.x_e);
+    Estimated_Error(iter) = norm(param.x - param.x_e);
 end
-area(mean(UB)-mean(LB),'facecolor',[0.3,1,1])
-hold on
-title('Range of n_i')
-xlabel('Sensors')
-ylabel('Value of n_i')
-area(mean(error),'facecolor','r')
-ylim([0,1.5*(mean(mean(UB)-mean(LB)))])
-legend('Range of n_i','Error')
-xticks([1:M])
