@@ -58,5 +58,5 @@ param = solve_x(param);
 fprintf("Error:%2.2fm Estimated Error:%2.2fm\n",norm(param.x_0 - param.x_e)*1000,norm(param.x - param.x_e)*1000)
 if d == 3
     earth
-    demo_3_D(param);
+    %demo_3_D(param);
 end

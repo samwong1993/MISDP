@@ -19,7 +19,7 @@ function param = realdata()
     for i = 1:5
         a(i) = norm(s(i,:)-x_e) - lambda*n(i);
     end
-    x_0  = x_e + 3/1000*rand(1,3);
+    x_0  = x_e + 2/1000*rand(1,3) - 1/1000;
     rho = 1.5*norm(x_0 - x_e);
 %     x_0 = [3844063.67152181,709663.813675533,5023132.40629669];
 %     rho = 6;
