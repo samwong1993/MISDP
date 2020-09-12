@@ -1,10 +1,10 @@
 clear all
-lambda = 8;
-M = 6;
-d = 3;
-%load data
-param = generator(lambda,M,d);
-%param = realdata();
+% lambda = 8;
+% M = 6;
+% d = 3;
+% %load data
+% param = generator(lambda,M,d);
+param = realdata();
 [M,d] = size(param.s);
 %param.a = param.a + 2*randn(1,M);
 %initialization
@@ -55,6 +55,8 @@ fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_
 fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
 param.n = n_best';
 param = solve_x(param);
+fprintf("Error:%2.2fm Estimated Error:%2.2fm\n",norm(param.x_0 - param.x_e)*1000,norm(param.x - param.x_e)*1000)
 if d == 3
+    earth
     demo_3_D(param);
 end
