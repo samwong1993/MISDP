@@ -1,11 +1,11 @@
 clear all
-for iter = 65:100
-%     lambda = 8;
-%     M = 6;
-%     d = 3;
-%     %load data
-%     param = generator(lambda,M,d);
-    param = realdata();
+for iter = 1:100
+    lambda = 2;
+    M = 6;
+    d = 3;
+    % %load data
+    param = generator(lambda,M,d);
+%     param = realdata();
     [M,d] = size(param.s);
     %param.a = param.a + 2*randn(1,M);
     %initialization
@@ -54,6 +54,8 @@ for iter = 65:100
     end
     param.n = n_best';
     param = solve_x(param);
+    fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
+    fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
     fprintf("Error Range:(%2.2f,%2.2f)m|Error:%2.2fm|Estimated Error:%2.2fm\n",(param.rho + norm(param.x_0 - param.x_e)),(param.rho - norm(param.x_0 - param.x_e)),norm(param.x_0 - param.x_e),norm(param.x - param.x_e))
     Error_Range(iter,:) = [(param.rho + norm(param.x_0 - param.x_e)),(param.rho - norm(param.x_0 - param.x_e))];
     Error(iter) = norm(param.x_0 - param.x_e);

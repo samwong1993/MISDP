@@ -2,7 +2,10 @@ function param = realdata()
     R = 21000;
     M = 5;
     d = 3;
-    x_e = [3844059.71543,709661.56843,5023129.70605]/1000;
+	x_0  = [3844059.71543,709661.56843,5023129.70605]/1000;
+    rho = 5/1000;
+    r = 2*rho/sqrt(3);
+    x_e = x_0 + r*rand(1,3) - r/2;
     s(1,:) = [5394000,-1752000,2890000]/1000;  
     s(2,:) = [5979000,1943000,995700]/1000;  
     s(3,:) = [2645000,3641000,4501000]/1000;  
@@ -15,11 +18,9 @@ function param = realdata()
     for i = 1:M
         n(i) = floor(norm(x_e - s(i,:))/lambda);
     end
-    for i = 1:5
+    for i = 1:M
         a(i) = norm(s(i,:)-x_e) - lambda*n(i);
     end
-    x_0  = x_e + 5/1000*rand(1,3) - 2.5/1000;
-    rho = 5*norm(x_0 - x_e);
     param.lambda = lambda;
     param.x_e = x_e;
     param.n_e = n;
