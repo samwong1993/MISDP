@@ -48,14 +48,14 @@ while(abs(z_Upper - z_Lower) > 1e-8)
     Y(:,:,i) = Y_d;
     i = i + 1;
     k = k + 1;
-    fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),1000000*abs(z_Upper - z_Lower))
-    fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',1000000*obj)
+    fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
+    fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',obj)
     if k > 20 & z_Upper < 5 | i > 50
         break
     end
 end
-fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),1000*abs(z_Upper - z_Lower))
-fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',1000000*abs(z_Upper - z_Lower))
+fprintf("LB:("+str+")|UP:("+str+")|Gap:%2.2f\n",range_n(:,1),range_n(:,2),abs(z_Upper - z_Lower))
+fprintf("n_e:("+str+")|n:("+str+")|Fun:%2.2f\n",param.n_e,n_best',abs(z_Upper - z_Lower))
 param.n = n_best';
 param = solve_x(param);
 fprintf("Error Range:(%2.2f,%2.2f)m|Error:%2.2fm|Estimated Error:%2.2fm\n",(param.rho + norm(param.x_0 - param.x_e))*1000,(param.rho - norm(param.x_0 - param.x_e))*1000,norm(param.x_0 - param.x_e)*1000,norm(param.x - param.x_e)*1000)
