@@ -1,5 +1,5 @@
 clear all
-lambda = 2;
+lambda = 1;
 M = 6;
 d = 3;
 % %load data
@@ -31,10 +31,11 @@ i = 1;
 while(abs(z_Upper - z_Lower) > 1e-8)
     cvx_solver mosek
     [z,X,G,n] = OA_master(param,H,Y);
+%     [z,X,G,n] = OA_master_iter(param,H,Y,G);
     z_Lower = sum(z);
     cvx_solver SDPT3
     param.n = n';
-    [G_p,X_p,S_p] = NLP_P(param);
+    %[G_p,X_p,S_p] = NLP_P(param);
     [H_d,Y_d,S_d] = NLP_D(param);
     param = solve_x(param);
     obj = objective(param);
